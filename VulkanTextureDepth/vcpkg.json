@@ -1,0 +1,8 @@
+{
+  "name": "vulkan-application",
+  "version": "0.0.1",
+  "dependencies": [
+    "vulkan-memory-allocator"
+  ]
+}
+

@@ -1,0 +1,6 @@
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-linux
+Multi-Arch: same
+Abi: 7fdabe646bd6a3720fcd1f4e56821a9e5b468a682c36c231b7f3b15ac2edaa64
+Status: install ok half-installed
