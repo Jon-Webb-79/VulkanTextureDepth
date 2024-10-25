@@ -17,6 +17,8 @@
 #include <vector>
 #include <iostream>
 #include <glm/glm.hpp>            // Core GLM functionality
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/gtc/matrix_transform.hpp>  // For glm::rotate, glm::lookAt, glm::perspective
 #include <chrono>
 // ================================================================================
@@ -151,6 +153,13 @@ VulkanApplication::VulkanApplication(GLFWwindow* window,
                                             vulkanInstanceCreator->getSurface(),
                                             vulkanPhysicalDevice->getDevice(),
                                             this->windowInstance);
+    depthManager = std::make_unique<DepthManager>(
+        *allocatorManager,                              // Dereference unique_ptr
+        vulkanLogicalDevice->getDevice(),
+        vulkanPhysicalDevice->getDevice(),
+        swapChain->getSwapChainExtent()
+    );
+    depthManager->createDepthResources();
     commandBufferManager = std::make_unique<CommandBufferManager>(vulkanLogicalDevice->getDevice(),
                                                                   indices,
                                                                   vulkanPhysicalDevice->getDevice(),
@@ -186,7 +195,8 @@ VulkanApplication::VulkanApplication(GLFWwindow* window,
                                                           indices,
                                                           vulkanPhysicalDevice->getDevice(),
                                                           std::string("../../shaders/shader.vert.spv"),
-                                                          std::string("../../shaders/shader.frag.spv"));
+                                                          std::string("../../shaders/shader.frag.spv"),
+                                                          *depthManager);
     graphicsPipeline->createFrameBuffers(swapChain->getSwapChainImageViews(), 
                                          swapChain->getSwapChainExtent());
     graphicsQueue = this->vulkanLogicalDevice->getGraphicsQueue();
@@ -224,19 +234,22 @@ void VulkanApplication::run() {
 // ================================================================================
 
 void VulkanApplication::destroyResources() {
-
+    graphicsPipeline.reset();
+    descriptorManager.reset();
     commandBufferManager.reset();
+    
     samplerManager.reset();
     textureManager.reset();
-    bufferManager.reset();
-    descriptorManager.reset();
-    graphicsPipeline.reset();
-    allocatorManager.reset();
+    bufferManager.reset(); 
+    depthManager.reset();
     swapChain.reset();
+    
+    // Reset allocator before logical device
+    allocatorManager.reset();
 
-    // Destroy Vulkan logical device first
+    // Destroy Vulkan logical device
     vulkanLogicalDevice.reset();
-
+    
     // Destroy other Vulkan resources
     vulkanPhysicalDevice.reset();
     vulkanInstanceCreator.reset();

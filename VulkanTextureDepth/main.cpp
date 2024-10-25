@@ -43,26 +43,28 @@ GLFWwindow* create_window(uint32_t h, uint32_t w, const std::string& screen_titl
 
 // Begin code
 int main(int argc, const char * argv[]) {
+
     // Define vertices for two connected triangles  
     const std::vector<Vertex> vertices = {
-        {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
-        {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
-        {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
-        {{-0.5f, 0.5f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}
+        {{-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+        {{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
+        {{0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+        {{-0.5f, 0.5f, 0.0f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}},
+
+        {{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}},
+        {{0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}},
+        {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}},
+        {{-0.5f, 0.5f, -0.5f}, {1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}
     };
-    // const std::vector<Vertex> vertices = {
-    //     {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
-    //     {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
-    //     {{0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}},
-    //     {{-0.5f, 0.5f}, {1.0f, 1.0f, 1.0f}}
-    // }; 
+
     const std::vector<uint16_t> indices = {
-        0, 1, 2, 2, 3, 0
-    }; 
+        0, 1, 2, 2, 3, 0,
+        4, 5, 6, 6, 7, 4
+    };
     
     // Call Application 
     try {
-        GLFWwindow* window = create_window(750, 900, "Vulkan Application", false);
+        GLFWwindow* window = create_window(1050, 1200, "Vulkan Application", false);
         VulkanApplication triangle(window, vertices, indices);
 
         triangle.run();

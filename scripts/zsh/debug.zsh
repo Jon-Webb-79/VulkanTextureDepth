@@ -13,8 +13,8 @@
 # ================================================================================
 # ================================================================================
 
-cmake -S ../../VulkanTexture/ -B ../../VulkanTexture/build/debug/ -DCMAKE_BUILD_TYPE=Debug
-cmake --build ../../VulkanTexture/build/debug/
+cmake -S ../../VulkanTextureDepth/ -B ../../VulkanTextureDepth/build/debug/ -DCMAKE_BUILD_TYPE=Debug
+cmake --build ../../VulkanTextureDepth/build/debug/
 # ================================================================================
 # ================================================================================
 # eof

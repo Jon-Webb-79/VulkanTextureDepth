@@ -13,8 +13,8 @@
 # ================================================================================
 # ================================================================================
 
-cmake -S ../../VulkanApplication/ -B ../../VulkanApplication/build/release/ -DCMAKE_BUILD_TYPE=Release
-cmake --build ../../VulkanApplication/build/release/
+cmake -S ../../VulkanTextureDepth/ -B ../../VulkanTextureDepth/build/release/ -DCMAKE_BUILD_TYPE=Release
+cmake --build ../../VulkanTextureDepth/build/release/
 # ================================================================================
 # ================================================================================
 # eof
